@@ -15,6 +15,10 @@ public class User extends BaseModel {
         return getString("screen_name");
     }
 
+    public String getProfileImageUrl() {
+        return getString("profile_image_url");
+    }
+    
     public String getProfileBackgroundImageUrl() {
         return getString("profile_background_image_url");
     }
