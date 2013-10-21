@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -46,6 +46,10 @@
         <activity
             android:name="com.veer.apps.twitterclient.TimelineActivity"
             android:label="@string/title_activity_timeline" >
+        </activity>
+        <activity
+            android:name="com.veer.apps.twitterclient.ComposeActivity"
+            android:label="@string/title_activity_compose" >
         </activity>
     </application>
 

@@ -34,10 +34,17 @@ public class TwitterClient extends OAuthBaseClient {
         super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
     }
     
+    //Get twitter feeds
     public void getHomeTimeline(AsyncHttpResponseHandler handler){
     	String url = getApiUrl("statuses/home_timeline.json");
     	//for images, we`ll use 'post' 
     	client.get(url, null, handler);
+    }
+    
+    //Post new tweets
+    public void postStatus(AsyncHttpResponseHandler handler){
+    	String url = getApiUrl("statuses/update.json");
+    	client.post(url, handler);
     }
     
     // CHANGE THIS
