@@ -35,16 +35,25 @@ public class TwitterClient extends OAuthBaseClient {
     }
     
     //Get twitter feeds
-    public void getHomeTimeline(AsyncHttpResponseHandler handler){
+    public void getHomeTimeline(long olderID, AsyncHttpResponseHandler handler){
     	String url = getApiUrl("statuses/home_timeline.json");
-    	//for images, we`ll use 'post' 
-    	client.get(url, null, handler);
+ 
+    	RequestParams params = new RequestParams();
+    	if(olderID != 0)
+    		params.put("max_id", String.valueOf(olderID));
+    	else 
+    		params = null;
+    	
+    	client.get(url, params, handler);
     }
     
-    //Post new tweets
-    public void postStatus(AsyncHttpResponseHandler handler){
+    //Post new tweets   -- eg: for images also, we`ll use 'post' 
+    public void postStatus(String nTweet, AsyncHttpResponseHandler handler){
     	String url = getApiUrl("statuses/update.json");
-    	client.post(url, handler);
+    	RequestParams params = new RequestParams();
+    	params.put("status", nTweet);
+    	
+    	client.post(url, params, handler);
     }
     
     // CHANGE THIS
