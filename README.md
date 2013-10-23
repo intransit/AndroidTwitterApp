@@ -1,7 +1,27 @@
 # Android Twitter App
 =====================
 
+## Features
+
+ * User can sign in using OAuth login flow
+ * User can view last 25 tweets from their home timeline
+ * User is able to see the user, body and timestamp for tweet
+ * User can compose a new tweet
+ * User can click a “Compose” icon in the Action Bar on the top right
+ * User will have a Compose view opened
+ * User can enter a message and hit a button to Post
+ * User is taken back to home timeline with new tweet visible
+ * User can see a counter with total number of characters left for tweet
+ * User can load more tweets once they reach the bottom of the list
+   - Using "Load More" Button or "Lazy Endless" Scrolling
+ * User can refresh timeline by pulling down (i.e pull-to-refresh)
+ * User can open the twitter app offline and see recent tweets
+   - Tweets are persisted into sqlite and displayed from the local DB
+
+
 ## Overview
+
+The goal of this project is to create a basic Twitter client by following a series of exercises. This project is appropriate for someone just starting out with Android development and is following along with the CodePath Android curriculum.
 
 RestClientTemplate is a skeleton Android project that makes writing Android apps sourced from OAuth JSON REST APIs as easy as possible. This skeleton project
 combines the best libraries and structure to enable quick development of rich API clients. The following things are supported out of the box:
