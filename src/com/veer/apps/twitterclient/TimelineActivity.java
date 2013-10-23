@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.veer.apps.twitterclient.models.Tweet;
+
+import eu.erikw.PullToRefreshListView;
+import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class TimelineActivity extends Activity {
 
@@ -24,15 +26,18 @@ public class TimelineActivity extends Activity {
 	
 	private String newTweet;
 	private TweetsAdapter adapter;
-	private ListView lvTweets;
+	//private ListView lvTweets;
+	 PullToRefreshListView lvTweets;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_timeline);
 		
-		lvTweets = (ListView)findViewById(R.id.lvTweets);
+		//lvTweets = (ListView)findViewById(R.id.lvTweets);
+		lvTweets = (PullToRefreshListView)findViewById(R.id.lvTweets);
 		
+		//Get home timeline the first time activity loads [max_id = 0]
 		TwitterClientApp.getRestClient().getHomeTimeline(max_id, new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(JSONArray jsonTweets){
@@ -45,6 +50,7 @@ public class TimelineActivity extends Activity {
 			}
 		});
 		
+		//Endless scrolling listener
 		lvTweets.setOnScrollListener(new EndlessScrollListener() {
 		    @Override
 		    public void onLoadMore(int page, int totalItemsCount) {
@@ -54,6 +60,21 @@ public class TimelineActivity extends Activity {
 		        loadMoreTweets();
 		    }
 	    });
+		
+		// Pull-to-refresh: Set a listener to be invoked when the list should be refreshed.
+        lvTweets.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list contents
+                // Make sure you call listView.onRefreshComplete()
+                // once the loading is done. This can be done from here or any
+                // place such as when the network request has completed successfully.
+                fetchTimelineOnPullToRefresh(0);
+                
+                // Now we call onRefreshComplete to signify refresh has finished
+                lvTweets.onRefreshComplete();
+            }
+        });
 	}
 
 	@Override
@@ -90,7 +111,7 @@ public class TimelineActivity extends Activity {
 		    TwitterClientApp.getRestClient().postStatus(newTweet, new JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(JSONObject jsonTweets){
-					Toast.makeText(getBaseContext(), "yi hoo..", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getBaseContext(), "yi hoo..", Toast.LENGTH_SHORT).show();
 					Log.d("DEBUG", jsonTweets.toString());
 					
 					Tweet tweets = Tweet.fromJson(jsonTweets);
@@ -99,4 +120,18 @@ public class TimelineActivity extends Activity {
 			});
 		}
 	}
+	
+	public void fetchTimelineOnPullToRefresh(int page) {
+		TwitterClientApp.getRestClient().getHomeTimeline(0, new JsonHttpResponseHandler() {
+            public void onSuccess(JSONArray jsonTweets) {
+                // ...the data has come back, finish populating listview...
+            	ArrayList<Tweet> tweets = Tweet.fromJson(jsonTweets);
+				adapter.addAll(tweets);
+            }
+
+            public void onFailure(Throwable e) {
+                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
+            }
+        });
+    }
 }
