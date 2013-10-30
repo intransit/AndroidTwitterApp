@@ -12,5 +12,6 @@
     <string name="etTweet"></string>
     <string name="btnPostTweet">Tweet</string>
     <string name="tvCharCount">140 characters left</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

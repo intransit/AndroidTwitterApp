@@ -35,6 +35,10 @@ public class User extends BaseModel {
         return getInt("friends_count");
     }
 
+    public String getTagline() {
+        return getString("description");
+    }
+    
     public static User fromJson(JSONObject json) {
         User u = new User();
 

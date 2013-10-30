@@ -8,4 +8,10 @@
         android:icon="@drawable/ic_compose_tweet"
         android:onClick="launchTweetComposeActivity"/>
 
+    <item
+        android:id="@+id/action_profile"
+        android:showAsAction="ifRoom"
+        android:title="Profile"
+        android:icon="@drawable/ic_profile"
+        android:onClick="onProfileView"/>
 </menu>

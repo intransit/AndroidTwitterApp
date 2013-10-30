@@ -51,6 +51,10 @@
             android:name="com.veer.apps.twitterclient.ComposeActivity"
             android:label="@string/title_activity_compose" >
         </activity>
+        <activity
+            android:name="com.veer.apps.twitterclient.ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
     </application>
 
 </manifest>
