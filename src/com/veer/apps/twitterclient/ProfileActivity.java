@@ -13,13 +13,15 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.veer.apps.twitterclient.fragments.TweetsListFragment;
+import com.veer.apps.twitterclient.fragments.UserTimelineFragment;
 import com.veer.apps.twitterclient.models.Tweet;
 import com.veer.apps.twitterclient.models.User;
 
 public class ProfileActivity extends FragmentActivity {
 
 	public static String _screenName;
-	private TweetsListFragment fragmentTweets;
+	//private TweetsListFragment fragmentTweets;
+	private UserTimelineFragment fragmentTweets1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +30,21 @@ public class ProfileActivity extends FragmentActivity {
 		
 		_screenName = getIntent().getStringExtra("screen_name");
 		
-		fragmentTweets = (TweetsListFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentUserTimeline);
+		//fragmentTweets = (TweetsListFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentUserTimeline);
+		
+		fragmentTweets1 = (UserTimelineFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentUserTimeline);
+		fragmentTweets1.setUser(_screenName);
 		
 		loadProfileInfo();
-		loadTimeline();
+//		loadTimeline();
 	}
 
 	private void loadTimeline() {
 		TwitterClientApp.getRestClient().getUserTimeline(_screenName, new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(JSONArray jsonTweets){
-				fragmentTweets.getAdapter().clear();
-				fragmentTweets.getAdapter().addAll(Tweet.fromJson(jsonTweets));
+//				fragmentTweets.getAdapter().clear();
+//				fragmentTweets.getAdapter().addAll(Tweet.fromJson(jsonTweets));
 			}
 		});
 	}

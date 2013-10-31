@@ -24,7 +24,16 @@ public class UserTimelineFragment extends TweetsListFragment {
 //		if(imageView.getTag() != null)
 //			System.out.println("Screen nameeeee 0000000: " + imageView.getTag().toString());
 		
-		TwitterClientApp.getRestClient().getUserTimeline(null, new JsonHttpResponseHandler(){
+//		TwitterClientApp.getRestClient().getUserTimeline(null, new JsonHttpResponseHandler(){
+//			@Override
+//			public void onSuccess(JSONArray jsonTweets){
+//				getAdapter().addAll(Tweet.fromJson(jsonTweets));
+//			}
+//		});
+	}
+	
+	public void setUser(String sName){
+		TwitterClientApp.getRestClient().getUserTimeline(sName, new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(JSONArray jsonTweets){
 				getAdapter().addAll(Tweet.fromJson(jsonTweets));
