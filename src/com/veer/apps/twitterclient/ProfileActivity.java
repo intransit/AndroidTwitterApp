@@ -27,7 +27,6 @@ public class ProfileActivity extends FragmentActivity {
 		setContentView(R.layout.activity_profile);
 		
 		_screenName = getIntent().getStringExtra("screen_name");
-		System.out.println("Screen nameeeee 111111: " + _screenName);
 		
 		fragmentTweets = (TweetsListFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentUserTimeline);
 		

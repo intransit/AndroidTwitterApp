@@ -59,7 +59,12 @@ public class TweetsAdapter extends ArrayAdapter<Tweet>{
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(baseContext, ProfileActivity.class);
+				
+				//storing screen_name and fetching, does not work, 
+				//since storing happens during load and fetching/click happens much later
+				//hence, random user profile opens when clicking an image
 				//i.putExtra("screen_name", screenName);
+				
 				i.putExtra("screen_name", v.getTag().toString());
 				baseContext.startActivity(i);
 			}
