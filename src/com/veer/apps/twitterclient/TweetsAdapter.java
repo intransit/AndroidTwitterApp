@@ -52,13 +52,15 @@ public class TweetsAdapter extends ArrayAdapter<Tweet>{
 		ImageLoader.getInstance().displayImage(tweet.getUser().getProfileImageUrl(), imageView);
 		
 		screenName = tweet.getUser().getScreenName();
-		imageView.setTag(screenName);
+		//imageView.setTag(screenName);
+		imageView.setTag(tweet.getUser().getScreenName());
 		
 		imageView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(baseContext, ProfileActivity.class);
-				i.putExtra("screen_name", screenName);
+				//i.putExtra("screen_name", screenName);
+				i.putExtra("screen_name", v.getTag().toString());
 				baseContext.startActivity(i);
 			}
 		});
